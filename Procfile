@@ -1,2 +1,2 @@
-worker: python bot.py
+web: python bot.py
 worker: celery -A tasks worker --loglevel=INFO
