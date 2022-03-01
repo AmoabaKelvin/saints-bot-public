@@ -1,0 +1,9 @@
+venv/
+.vscode/
+*.pyc
+.vscode/
+*.xml/
+.idea/
+__pycache__/
+wordhoard_error.yaml
+*.log
