@@ -3,6 +3,7 @@ import os
 
 import telebot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from telebot.util import split_string
 
 import messages
 import tasks
@@ -43,7 +44,11 @@ def lookup_word(message):
     word_to_lookup = message.text.replace("/dic", "")
     bot.send_chat_action(message.chat.id, "typing")
     dictionary_result = utils.lookup(word_to_lookup)
-    bot.send_message(message.chat.id, dictionary_result, parse_mode="Markdown")
+    # Sometimes the characters are more than the maximum 4096, hence, the
+    # results is splitted and then sent to the user.
+    splitted_text = split_string(dictionary_result, 4000)
+    for text in splitted_text:
+        bot.send_message(message.chat.id, text, parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["update"])
@@ -105,7 +110,9 @@ def handle_all_text(message):
         # If the results from the function is a tuple, go ahead and unpack
         # the values into the summary and images variable.
         summary, images = function_results
-        bot.send_message(message.chat.id, summary)
+        splitted_summary = split_string(summary, 4000)
+        for summary in splitted_summary:
+            bot.send_message(message.chat.id, summary)
         bot.send_chat_action(message.chat.id, "upload_photo")
         for i in images[:4]:
             try:
