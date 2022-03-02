@@ -44,9 +44,9 @@ def lookup(word: str) -> str:
     antonyms = Antonyms(word).find_antonyms()
     synonyms = Synonyms(word).find_synonyms()
     if isinstance(antonyms, list):
-        antonyms = "; ".join(antonyms)
+        antonyms = "; ".join(antonyms[:9])
     if isinstance(synonyms, list):
-        synonyms = "; ".join(synonyms)
+        synonyms = "; ".join(synonyms[:9])
     for part_of_speech in meanings:
         meaning = (
             f"{part_of_speech}: {'; '.join(meanings.get(part_of_speech))})"
