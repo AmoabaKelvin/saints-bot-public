@@ -46,9 +46,7 @@ def lookup_word(message):
     dictionary_result = utils.lookup(word_to_lookup)
     # Sometimes the characters are more than the maximum 4096, hence, the
     # results is splitted and then sent to the user.
-    splitted_text = split_string(dictionary_result, 4000)
-    for text in splitted_text:
-        bot.send_message(message.chat.id, text, parse_mode="Markdown")
+    bot.send_message(message.chat.id, dictionary_result, parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["update"])
