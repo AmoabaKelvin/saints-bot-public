@@ -4,7 +4,7 @@ import wikipedia
 from bs4 import BeautifulSoup
 from PyMultiDictionary import DICT_WORDNET, MultiDictionary
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver import ChromeOptions
 from wordhoard import Antonyms, Synonyms
 
 import messages
@@ -64,11 +64,11 @@ def scrape_books_from_b_africa(book_title: str):
     """
     formatted_search_query = book_title.replace(" ", "+")
     # setup chromedriver options
-    chrome_options = Options()
+    chrome_options = ChromeOptions()
     chrome_options.binary_location = os.environ["GOOGLE_CHROME_BIN"]
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-sh-usage")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(
         executable_path=os.environ["CHROMEDRIVER_PATH"], options=chrome_options
     )
